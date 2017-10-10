@@ -15,7 +15,7 @@
   </thead>
   
   <tbody>
-    <%  @histories.each do |history|%>
+    <% @histories.each do |history|%>
     <tr>
       <td><%= "test"%></td>
       <td><%= User.find(history[:user_id])[:email] %></td>
