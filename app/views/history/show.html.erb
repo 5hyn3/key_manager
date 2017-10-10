@@ -1,5 +1,9 @@
 <%= form_tag :action => 'add' do %>
-  <%= submit_tag "鍵を借りる"%>
+  <% if current_user[:before_action] == 0 %>
+    <%= submit_tag "鍵を借りる"%>
+  <% else %>
+    <%= submit_tag "鍵を返却する"%>
+  <% end %>
 <% end %>
 
 <%= link_to "ログアウト", destroy_user_session_path, method: :delete, :class => "nav-link ebifit-pass" %>
@@ -17,10 +21,10 @@
   <tbody>
     <% @histories.each do |history|%>
     <tr>
-      <td><%= "test"%></td>
+      <td><%= User.find(history[:user_id])[:name]%></td>
       <td><%= User.find(history[:user_id])[:email] %></td>
-      <td><%= history[:action] == 0 ? 'borrow' : 'return' %></td>
-      <td><%= history[:created_at] %></td>
+      <td><%= history[:action] == 0 ? 'return' : 'borrow' %></td>
+      <td><%= history[:created_at].in_time_zone('Tokyo') %></td>
     </tr>
     <% end %>
   </tbody>

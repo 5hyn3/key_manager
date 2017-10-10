@@ -7,8 +7,13 @@ class HistoryController < ApplicationController
   def add
     history = History.new
     history[:user_id] = current_user[:id]
-    history[:action] = 0
+    if current_user[:before_action] == 0
+      history[:action] = current_user[:before_action] = 1
+    else
+      history[:action] = current_user[:before_action] = 0
+    end
     history.save
+    current_user.save
     redirect_to :action => "show"
   end
 end
