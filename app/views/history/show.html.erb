@@ -1,2 +1,27 @@
-<h1>History#show</h1>
-<p>Find me in app/views/history/show.html.erb</p>
+<%= form_tag :action => 'add' do %>
+  <%= submit_tag "鍵を借りる"%>
+<% end %>
+
+<%= link_to "ログアウト", destroy_user_session_path, method: :delete, :class => "nav-link ebifit-pass" %>
+
+<table class="type02">
+  <thead>
+    <tr>
+      <th>UserName</th>
+      <th>MailAddress</th>
+      <th>Action</th>
+      <th>Data</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <%  @histories.each do |history|%>
+    <tr>
+      <td><%= "test"%></td>
+      <td><%= User.find(history[:user_id])[:email] %></td>
+      <td><%= history[:action] == 0 ? 'borrow' : 'return' %></td>
+      <td><%= history[:created_at] %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
